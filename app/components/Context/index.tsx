@@ -3,9 +3,8 @@ import { urls, addUrl } from './urls';
 import UrlButton from './UrlButton';
 import { Card, ICard } from './Card';
 import { clearIndex, crawlDocument } from './utils';
-import { Button, ScrollArea, Group, Center, Stack, TextInput, Paper, Title, Loader, Overlay } from '@mantine/core';
+import { Button, ScrollArea, Group, Center, TextInput, Paper, Title } from '@mantine/core';
 import { IconClipboard } from '@tabler/icons-react';
-import { useRouter } from 'next/navigation';
 import { showNotification } from '@mantine/notifications';
 import { Subgrid } from '../Subgrid';
 
@@ -21,38 +20,50 @@ const Context: React.FC<ContextProps> = ({ className, selected, height }) => {
   const [loading, setLoading] = useState(false);
 
   const [url, setUrl] = useState('');
-  const router = useRouter();
 
-  // In your component
-const handleAddUrl = async (url: string) => {
-  setLoading(true);
-  try {
-    await addUrl(url, setLoading, (error) => {
+  const handleAddUrl = async (url: string) => {
+    setLoading(true);
+    try {
+      // Check if the URL already exists in the entries state
+      const urlExists = entries.some(entry => entry.url === url);
+      if (urlExists) {
+        showNotification({
+          title: 'Error',
+          message: 'URL already exists',
+          color: 'orange',
+        });
+        setLoading(false);
+        return; // Exit the function early if the URL already exists
+      }
+  
+      await addUrl(url, setLoading, (error) => {
+        console.error("Failed to add URL:", error);
+        showNotification({
+          title: 'Error',
+          message: error,
+          color: 'red',
+        });
+      });
+      
+      // Proceed to add the URL if it does not already exist
+      // setEntries([...entries, {
+      //   url: url,
+      //   title: `URL ${entries.length + 1}`,
+      //   seeded: false,
+      //   loading: false,
+      // }]);
+      setUrl(''); // Clear the input field after successful URL addition
+    } catch (error) {
       console.error("Failed to add URL:", error);
       showNotification({
         title: 'Error',
-        message: error,
+        message: error instanceof Error ? error.message : String(error),
         color: 'red',
       });
-    });
-    setEntries(prevEntries => [...prevEntries, {
-      url: url,
-      title: `URL ${prevEntries.length + 1}`,
-      seeded: false,
-      loading: false,
-    }]);
-    setUrl('');
-  } catch (error) {
-    console.error("Failed to add URL:", error);
-    showNotification({
-      title: 'Error',
-      message: error instanceof Error ? error.message : String(error),
-      color: 'red',
-    });
-  } finally {
-    setLoading(false);
-  }
-};
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const splittingMethod = 'markdown'; // markdown splitting
 

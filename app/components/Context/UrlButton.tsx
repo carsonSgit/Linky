@@ -26,7 +26,7 @@ const UrlButton: FC<IURLButtonProps> = ({ entry, onClick, loading }) => (
         disabled={loading}
       >
         {(entry.loading || loading) && <LoadingOverlay visible overlayProps={{ blur: 2 }} loaderProps={{ size: "sm", type: "bars" }}/>}
-        <ActionIcon color={entry.seeded ? 'green' : 'gray'} variant='subtle' mr="xs" component="a" href={entry.url} target="_blank">
+        <ActionIcon color={entry.seeded ? 'green' : 'gray'} variant='subtle' mr="xs" component="a" href={entry.url}>
           <IconShare2 />
         </ActionIcon>
         <Text>
