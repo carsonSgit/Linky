@@ -1,10 +1,9 @@
 'use client';
 
 import Chat from '../components/Chat';
-import { DarkToggle } from '../components/DarkToggle';
 import Context from '../components/Context';
 import { SimpleGrid, Paper } from '@mantine/core';
-import { useViewportSize } from '@mantine/hooks';
+import { useMediaQuery, useViewportSize } from '@mantine/hooks';
 import { useChat } from 'ai/react';
 import { useEffect, useRef, useState, FormEvent } from 'react';
 import Navbar from '../components/Nav/Navbar';
@@ -15,7 +14,7 @@ const ChatPage: React.FC = () => {
 
   const [gotMessages, setGotMessages] = useState(false);
   const [context, setContext] = useState<string[] | null>(null);
-  const [isModalOpen, setModalOpen] = useState(false);
+  const isMobile = useMediaQuery('(max-width: 768px)');
 
   const { messages, input, handleInputChange, handleSubmit } = useChat({
     onFinish: async () => {
@@ -58,7 +57,7 @@ const ChatPage: React.FC = () => {
       spacing={{ base: 10, sm: 'xl' }}
       verticalSpacing={{ base: 'md', sm: 'xl' }}
     >
-      <Paper p="xl" shadow="xs" radius="lg" h={height - 115} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
+      <Paper p="xl" shadow="xs" radius="lg" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', ...(isMobile ? {} : { height: height - 115 }) }}>
       <Chat
           input={input}
           handleInputChange={handleInputChange}
