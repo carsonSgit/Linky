@@ -1,13 +1,13 @@
 import { showNotification } from '@mantine/notifications';
 
-export const urls = [
-  {
-    url: "https://mantine.dev",
-    title: "Mantine UI",
-    seeded: false,
-    loading: false,
-  },
-];
+interface UrlEntry {
+  url: string;
+  title: string;
+  seeded: boolean;
+  loading: boolean;
+}
+
+export const urls: UrlEntry[] = [];
 
 // Function to add a new URL
 export const addUrl = async (newUrl: string, setLoading: (loading: boolean) => void, onError: (error: string) => void) => {
