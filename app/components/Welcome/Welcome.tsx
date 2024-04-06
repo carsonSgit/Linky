@@ -1,21 +1,26 @@
 import React, { useState } from 'react';
-import { useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation';
 import { addUrl } from '../Context/urls';
-import { Title, Text, TextInput, ActionIcon } from '@mantine/core';
+import { Title, Text, TextInput, ActionIcon, Loader } from '@mantine/core';
+import { showNotification } from '@mantine/notifications';
 import classes from './Welcome.module.css';
 import { IconClipboard } from '@tabler/icons-react';
 
 const Welcome = () => {
   const [url, setUrl] = useState('');
+  const [loading, setLoading] = useState(false); // Define loading state
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const setLoading = (loading: boolean) => {
-      console.log("Loading:", loading);
-    };
+    setLoading(true); // Start loading
     const onError = (error: string) => {
       console.error("Error:", error);
+      showNotification({
+        title: 'Error',
+        message: error,
+        color: 'red',
+      });
     };
     await addUrl(url, setLoading, onError);
     await router.push('/chat');
@@ -30,7 +35,7 @@ const Welcome = () => {
         </Text>
         .
         <form onSubmit={handleSubmit}>
-        <TextInput className={classes.searchUrl} size="xl" radius="lg" mt={30} placeholder='Paste your URL here' fw={500} rightSection={<IconClipboard />} value={url} onChange={(e) => setUrl(e.target.value)}/>
+          <TextInput className={classes.searchUrl} size="xl" radius="lg" mt={30} placeholder='Paste your URL here' fw={500} rightSection={loading ? <Loader size="xs" /> : <IconClipboard />} value={url} onChange={(e) => setUrl(e.target.value)}/>
         </form>
       </Title>
     </>

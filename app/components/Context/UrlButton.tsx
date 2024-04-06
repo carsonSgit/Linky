@@ -13,7 +13,7 @@ export interface IUrlEntry {
 interface IURLButtonProps {
   entry: IUrlEntry;
   onClick: () => Promise<void>;
-  loading: boolean;
+  loading: boolean; 
 }
 
 const UrlButton: FC<IURLButtonProps> = ({ entry, onClick, loading }) => (
@@ -30,7 +30,7 @@ const UrlButton: FC<IURLButtonProps> = ({ entry, onClick, loading }) => (
             <Loader size="sm" />
           </Overlay>
         )}
-        <ActionIcon color={entry.seeded ? 'green' : 'gray'} variant='subtle' mr="xs">
+        <ActionIcon color={entry.seeded ? 'green' : 'gray'} variant='subtle' mr="xs" component="a" href={entry.url} target="_blank">
           <IconShare2 />
         </ActionIcon>
         <Text>

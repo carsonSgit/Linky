@@ -28,10 +28,19 @@ export const addUrl = async (newUrl: string, setLoading: (loading: boolean) => v
 
     // Try each strategy in sequence
     for (const strategy of titleExtractStrategies) {
-      const match = html.match(strategy);
-      if (match && match[1]) {
-        title = match[1];
-        break;
+      try {
+        const match = html.match(strategy);
+        if (match && match[1]) {
+          title = match[1];
+          break;
+        }
+      } catch (strategyError) {
+        console.error("Error with strategy:", strategyError);
+        showNotification({
+          title: 'Error in title extraction',
+          message: strategyError instanceof Error ? strategyError.message : String(strategyError),
+          color: 'orange',
+        });
       }
     }
 
