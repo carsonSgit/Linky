@@ -76,7 +76,8 @@
     "storybook-dark-mode": "^3.0.3",
     "stylelint": "^16.2.1",
     "stylelint-config-standard-scss": "^13.0.0",
-    "typescript": "5.4.2"
+    "typescript": "5.4.2",
+    "webpack": "^5.91.0"
   },
   "packageManager": "yarn@4.1.1"
 }
