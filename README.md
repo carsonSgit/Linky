@@ -42,6 +42,6 @@ Linky harnesses the power of an AI model, integrated with a Pinecone Vector data
 ## 📚 What we learned 
 - Gained comprehensive knowledge about each technology within our tech stack
 
-##🔮 What's next for Linky 
+## 🔮 What's next for Linky 
 - Enhancing mobile responsiveness
 - Improving the display of retrieved data 📊
