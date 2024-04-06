@@ -5,6 +5,7 @@ import { Card, ICard } from './Card'; // Assuming this is a custom component you
 import { clearIndex, crawlDocument } from './utils';
 import { Button, ScrollArea, Group, Center, Stack, TextInput, Paper, Title } from '@mantine/core';
 import { IconClipboard } from '@tabler/icons-react';
+import { Subgrid } from '../Subgrid';
 
 interface ContextProps {
   className: string;
@@ -54,11 +55,11 @@ const Context: React.FC<ContextProps> = ({ className, selected, height }) => { /
       </Paper>
       {cards != null && (
         <Paper p="xl" shadow="xs" radius="lg" withBorder mt={12}>
-          <Stack>
+          <Subgrid>
             {cards.map((card, key) => (
               <Card key={key} card={card} selected={selected} />
             ))}
-          </Stack>
+          </Subgrid>
         </Paper>
       )}
     </ScrollArea>
