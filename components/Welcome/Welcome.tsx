@@ -1,22 +1,18 @@
-import { Title, Text, Anchor } from '@mantine/core';
+import { Title, Text, TextInput, ActionIcon } from '@mantine/core';
+import classes from './Welcome.module.css';
+import { IconSearch } from '@tabler/icons-react';
 
 export function Welcome() {
   return (
     <>
-      <Title ta="center" mt={100}>
-        Welcome to{' '}
-        <Text inherit variant="gradient" component="span" gradient={{ from: 'pink', to: 'yellow' }}>
-          Mantine
+      <Title className={classes.title} ta="left" mt={100} ml={140} fz={130}>
+        Hi, I'm {' '}
+        <Text inherit variant="gradient" component="span" gradient={{ from: '#01b7FF', to: '#01b7FF' }}>
+          Linky
         </Text>
+        <TextInput className={classes.searchUrl} size="xl" radius="lg" mt={30} placeholder='Paste your URL here' fw={500}/>
+        
       </Title>
-      <Text c="dimmed" ta="center" size="lg" maw={580} mx="auto" mt="xl">
-        This starter Next.js project includes a minimal setup for server side rendering, if you want
-        to learn more on Mantine + Next.js integration follow{' '}
-        <Anchor href="https://mantine.dev/guides/next/" size="lg">
-          this guide
-        </Anchor>
-        . To get started edit page.tsx file.
-      </Text>
     </>
   );
 }

@@ -1,0 +1,24 @@
+.title {
+  color: light-dark(var(--mantine-color-black), var(--mantine-color-white));
+  font-size: rem(150px);
+  font-weight: 900;
+  letter-spacing: rem(-2px);
+
+
+
+  @media (max-width: $mantine-breakpoint-md) {
+    font-size: rem(90px);
+    margin-left: rem(20px) !important;
+    line-height: rem(150px);
+  }
+}
+
+.searchUrl{
+  margin-right: rem(750px);
+
+  @media (max-width: $mantine-breakpoint-md) {
+    margin-top: rem(50px) !important;
+    margin-right: rem(15px) !important;
+    margin-left: rem(10px) !important;
+  }
+}
