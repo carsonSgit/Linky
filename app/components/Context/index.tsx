@@ -49,7 +49,7 @@ const Context: React.FC<ContextProps> = ({ className, selected }) => {
         </Button>
         </Center>
       </Paper>
-      {cards.length > 0 && (
+      {cards != null && (
         <Paper p="xl" shadow="xs" radius="lg" withBorder>
           <Stack>
             {cards.map((card, key) => (
