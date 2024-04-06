@@ -11,6 +11,7 @@ export function Welcome() {
           Linky
         </Text>
         .
+
         <TextInput className={classes.searchUrl} size="xl" radius="lg" mt={30} placeholder='Paste your URL here' fw={500}/>
         
       </Title>

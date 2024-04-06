@@ -5,7 +5,6 @@
   letter-spacing: rem(-2px);
 
 
-
   @media (max-width: $mantine-breakpoint-md) {
     font-size: rem(90px);
     margin-left: rem(20px) !important;
@@ -15,10 +14,19 @@
 
 .searchUrl{
   margin-right: rem(750px);
-
-  @media (max-width: $mantine-breakpoint-md) {
+  @media (max-width: $mantine-breakpoint-xl) {
+    margin-top: rem(50px) !important;
+    margin-right: rem(500px) !important;
+    margin-left: rem(10px) !important;
+  }
+  @media (max-width: $mantine-breakpoint-lg) {
     margin-top: rem(50px) !important;
     margin-right: rem(15px) !important;
+    margin-left: rem(10px) !important;
+  }
+  @media (max-width: $mantine-breakpoint-md) {
+    margin-top: rem(50px) !important;
+    margin-right: rem(35px) !important;
     margin-left: rem(10px) !important;
   }
 }
