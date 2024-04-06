@@ -2,12 +2,15 @@
 
 # 🎉 Welcome to Linky! 
 
-![image](https://github.com/GodPuffin/linky/assets/92652800/595aa872-2676-4761-9cde-bbe8023393db) 
+## 🏬 Our Team 
+> Hyperlinks lead to LinkedIn profiles*
+-  **[Marcus Lee](https://www.linkedin.com/in/marcus-lee-3b5298264/)** DEC, Computer Science & Math @ Vanier College 💻
+-  **[Carson Spriggs-Audet](https://www.linkedin.com/in/carson-spriggs-audet-609372217/)** DEC, Computer Science @ John Abbott College 💻
+
+## 🤔 What is Linky? 
 
 > [!NOTE]  
 > **Linky** was developed in <24hrs for [MariHacks](https://www.marihacks.com/)' 2024 Hackathon!
-
-## 🤔 What is Linky? 
 
 Researching can be complicated. Reading through possible sources just to see there isn't actually important information, having to read through heaps of information on a research paper to extract one bit of information, etc. **Linky** is here to **change** that for you.
 
