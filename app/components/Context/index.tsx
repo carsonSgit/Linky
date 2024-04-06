@@ -34,6 +34,8 @@ const Context: React.FC<ContextProps> = ({ className, selected, height }) => {
           color: 'red',
         });
       });
+      setUrl('');
+      await router.push('/chat');
     } catch (error) {
       showNotification({
         title: 'Error',
