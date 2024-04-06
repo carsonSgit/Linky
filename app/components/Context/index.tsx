@@ -15,7 +15,7 @@ interface ContextProps {
 }
 
 const Context: React.FC<ContextProps> = ({ className, selected, height }) => {
-  const [entries, setEntries] = useState(urls);
+  const [entries, setEntries] = useState([...urls]);
   const [cards, setCards] = useState<ICard[]>([]);
   const [loading, setLoading] = useState(false);
 
@@ -46,12 +46,12 @@ const Context: React.FC<ContextProps> = ({ className, selected, height }) => {
       });
       
       // Proceed to add the URL if it does not already exist
-      // setEntries([...entries, {
-      //   url: url,
-      //   title: `URL ${entries.length + 1}`,
-      //   seeded: false,
-      //   loading: false,
-      // }]);
+      setEntries([...entries, {
+        url: url,
+        title: `URL ${entries.length + 1}`,
+        seeded: false,
+        loading: false,
+      }]);
       setUrl(''); // Clear the input field after successful URL addition
     } catch (error) {
       console.error("Failed to add URL:", error);
