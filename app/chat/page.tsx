@@ -8,6 +8,7 @@ import { useViewportSize } from '@mantine/hooks';
 import { useChat } from 'ai/react';
 import { useEffect, useRef, useState, FormEvent } from 'react';
 import { Navbar } from '../components/Nav/Navbar';
+import '../page.css';
 
 const ChatPage: React.FC = () => {
   const { height, width } = useViewportSize();
