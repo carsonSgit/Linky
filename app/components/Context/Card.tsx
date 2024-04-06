@@ -25,13 +25,15 @@ export const Card: FC<ICardProps> = ({ card, selected }) => {
       p="lg"
       m="md"
       style={{
-        backgroundColor: isSelected ? '#4B5563' : '#1F2937',
-        borderColor: isSelected ? '#0EA5E9' : 'transparent',
-        borderWidth: isSelected ? 4 : 0,
-        borderStyle: 'double',
-        opacity: isSelected ? 1 : 0.6,
+        backgroundColor: isSelected ? '#616264' : '#434446',
+        borderColor: isSelected ? '#0076a5' : 'transparent',
+        borderWidth: isSelected ? 2 : 1,
+        borderStyle: 'solid',
+        opacity: isSelected ? 0.8 : 0.4,
         transition: 'opacity 300ms ease-in-out',
         color: 'white',
+        width: '100%',
+        maxWidth: 'fit-content'
       }}
       onMouseOver={(e) => {
         if (!isSelected) e.currentTarget.style.opacity = '0.8';
@@ -40,7 +42,9 @@ export const Card: FC<ICardProps> = ({ card, selected }) => {
         if (!isSelected) e.currentTarget.style.opacity = '0.6';
       }}
     >
-      <ReactMarkdown>{card.pageContent}</ReactMarkdown>
+       <div style={{ maxWidth: 'fit-content'}}>
+        <ReactMarkdown>{card.pageContent}</ReactMarkdown>
+      </div>
       <Text size="xs" fw={700}>
         {card.metadata.hash}
       </Text>

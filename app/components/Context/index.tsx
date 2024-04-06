@@ -57,6 +57,7 @@ const Context: React.FC<ContextProps> = ({ className, selected, height }) => { /
         <Center>
         <Button      
             variant="filled"
+            color="#01b7ff"
             onClick={() => clearIndex(setEntries, setCards)}
           >
             Clear Index
@@ -64,7 +65,7 @@ const Context: React.FC<ContextProps> = ({ className, selected, height }) => { /
         </Center>
       </Paper>
       {cards != null && (
-        <Paper p="xl" shadow="xs" radius="lg" withBorder>
+        <Paper p="xl" shadow="xs" radius="lg" withBorder mt={12}>
           <Stack>
             {cards.map((card, key) => (
               <Card key={key} card={card} selected={selected} />
