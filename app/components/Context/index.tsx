@@ -55,11 +55,11 @@ const Context: React.FC<ContextProps> = ({ className, selected, height }) => {
     element?.scrollIntoView({ behavior: 'smooth' });
   }, [selected]);
 
-  const buttons = entries.map((entry, key) => (
+  const buttons = entries.map((entry) => (
     <UrlButton
-      key={`${key}-${entry.loading}`}
+      key={entry.url}
       entry={entry}
-      onClick={() => crawlDocument(entry.url, setEntries, setCards, splittingMethod, 256, 1)} // Chunk size of 256 and overlap of 1
+      onClick={() => crawlDocument(entry.url, setEntries, setCards, splittingMethod, 256, 1)}
       loading={loading}
     />
   ));
