@@ -41,6 +41,7 @@ const handleAddUrl = async (url: string) => {
       seeded: false,
       loading: false,
     }]);
+    setUrl('');
   } catch (error) {
     console.error("Failed to add URL:", error);
     showNotification({
