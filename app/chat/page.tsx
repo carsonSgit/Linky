@@ -7,6 +7,7 @@ import { SimpleGrid, Paper } from '@mantine/core';
 import { useViewportSize } from '@mantine/hooks';
 import { useChat } from 'ai/react';
 import { useEffect, useRef, useState, FormEvent } from 'react';
+import { Navbar } from '@/components/Nav/Navbar';
 
 const ChatPage: React.FC = () => {
   const { height, width } = useViewportSize();
@@ -50,6 +51,7 @@ const ChatPage: React.FC = () => {
 
   return (
     <>
+    <Navbar />
       <SimpleGrid
       cols={{ base: 1, sm: 2,}}
       spacing={{ base: 10, sm: 'xl' }}
