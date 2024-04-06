@@ -1,5 +1,5 @@
 import cheerio from 'cheerio';
-import { NodeHtmlMarkdown } from 'node-html-markdown';
+import NodeHtmlMarkdown from 'node-html-markdown';
 
 interface Page {
   url: string;
@@ -75,7 +75,7 @@ class Crawler {
   private parseHtml(html: string): string {
     const $ = cheerio.load(html);
     $('a').removeAttr('href');
-    return NodeHtmlMarkdown.translate($.html());
+    return NodeHtmlMarkdown.NodeHtmlMarkdown.translate($.html());
   }
 
   private extractUrls(html: string, baseUrl: string): string[] {
