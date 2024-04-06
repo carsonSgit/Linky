@@ -14,28 +14,37 @@ export async function crawlDocument(
       seed.url === url ? { ...seed, loading: true } : seed
     )
   );
-  const response = await fetch("/api/crawl", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      url,
-      options: {
-        splittingMethod,
-        chunkSize,
-        overlap,
-      },
-    }),
-  });
 
-  const { documents } = await response.json();
+  try {
+    const response = await fetch("/api/crawl", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        url,
+        options: {
+          splittingMethod,
+          chunkSize,
+          overlap,
+        },
+      }),
+    });
 
-  setCards(documents);
+    if (!response.ok) {
+      // Handle non-200 responses
+      throw new Error(`Server error: ${response.status}`);
+    }
 
-  setEntries((prevEntries: IUrlEntry[]) =>
-    prevEntries.map((entry: IUrlEntry) =>
-      entry.url === url ? { ...entry, seeded: true, loading: false } : entry
-    )
-  );
+    const data = await response.json();
+    setCards(data.documents);
+
+    setEntries((prevEntries: IUrlEntry[]) =>
+      prevEntries.map((entry: IUrlEntry) =>
+        entry.url === url ? { ...entry, seeded: true, loading: false } : entry
+      )
+    );
+  } catch (error) {
+    console.error("Failed to fetch or parse response:", error);
+  }
 }
 
 export async function clearIndex(

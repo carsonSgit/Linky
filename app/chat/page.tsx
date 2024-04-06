@@ -1,8 +1,8 @@
 'use client';
 
-import Chat from '@/components/Chat';
-import { DarkToggle } from '@/components/DarkToggle';
-import Context from '@/components/Context';
+import Chat from '../components/Chat';
+import { DarkToggle } from '../components/DarkToggle';
+import Context from '../components/Context';
 import { SimpleGrid, Paper } from '@mantine/core';
 import { useViewportSize } from '@mantine/hooks';
 import { useChat } from 'ai/react';
