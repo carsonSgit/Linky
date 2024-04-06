@@ -23,29 +23,35 @@ const Context: React.FC<ContextProps> = ({ className, selected, height }) => {
   const [url, setUrl] = useState('');
   const router = useRouter();
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    try {
-      addUrl(url, setLoading, (error) => {
-        showNotification({
-          title: 'Error',
-          message: error,
-          color: 'red',
-        });
-      });
-      setUrl('');
-      await router.push('/chat');
-    } catch (error) {
+  // In your component
+const handleAddUrl = async (url: string) => {
+  setLoading(true);
+  try {
+    await addUrl(url, setLoading, (error) => {
+      console.error("Failed to add URL:", error);
       showNotification({
         title: 'Error',
-        message: 'Failed to fetch URL',
+        message: error,
         color: 'red',
       });
-    } finally {
-      setLoading(false);
-    }
-  };
+    });
+    setEntries(prevEntries => [...prevEntries, {
+      url: url,
+      title: `URL ${prevEntries.length + 1}`,
+      seeded: false,
+      loading: false,
+    }]);
+  } catch (error) {
+    console.error("Failed to add URL:", error);
+    showNotification({
+      title: 'Error',
+      message: error instanceof Error ? error.message : String(error),
+      color: 'red',
+    });
+  } finally {
+    setLoading(false);
+  }
+};
 
   const splittingMethod = 'markdown'; // markdown splitting
 
@@ -69,9 +75,12 @@ const Context: React.FC<ContextProps> = ({ className, selected, height }) => {
     <Title order={1} mb="md" ml="xl">Sources</Title>
       <Paper p="xl" shadow="xs" radius="lg" withBorder mb="lg" mt="lg">
         <Center>
-        <form onSubmit={handleSubmit}>
-        <TextInput size="lg" radius="lg" placeholder='Paste your URL here' value={url} rightSection={<IconClipboard />} maw={800} w="100%" onChange={(e) => setUrl(e.target.value)}/>
-        </form>
+          <form onSubmit={(e) => {
+            e.preventDefault();
+            handleAddUrl(url);
+          }}>
+            <TextInput size="lg" radius="lg" placeholder='Paste your URL here' value={url} rightSection={<IconClipboard />} maw={800} width="100%" onChange={(e) => setUrl(e.target.value)}/>
+          </form>
         </Center>
         <Group gap="xs" m="md">
           {buttons}
