@@ -45,6 +45,7 @@ const Context: React.FC<ContextProps> = ({ className, selected, height }) => { /
         <Center>
         <Button      
             variant="filled"
+            color="#01b7ff"
             onClick={() => clearIndex(setEntries, setCards)}
           >
             Clear Index
