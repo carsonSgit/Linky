@@ -44,7 +44,7 @@ export const Card: FC<ICardProps> = ({ card, selected }) => {
     >
        <div style={{ maxWidth: 'fit-content'}}>
         {/* <ReactMarkdown>{card.pageContent}</ReactMarkdown> */}
-        <Text>{card.pageContent.replace(/-/g, '')}</Text>
+        <Text maw={365}>{card.pageContent.replace(/-/g, '')}</Text>
       </div>
       <Text size="xs" fw={700} >
         {card.metadata.hash}
