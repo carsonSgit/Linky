@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { urls } from './urls';
+import { urls, addUrl } from './urls';
 import UrlButton from './UrlButton'; // Assuming this is a custom component you've created
 import { Card, ICard } from './Card'; // Assuming this is a custom component you've created
 import { clearIndex, crawlDocument } from './utils';
 import { Button, ScrollArea, Group, Center, Stack, TextInput, Paper, Title } from '@mantine/core';
 import { IconClipboard } from '@tabler/icons-react';
 import { Subgrid } from '../Subgrid';
+import { useRouter } from 'next/navigation'
 
 interface ContextProps {
   className: string;
@@ -16,6 +17,15 @@ interface ContextProps {
 const Context: React.FC<ContextProps> = ({ className, selected, height }) => { // Added height to the destructured props
   const [entries, setEntries] = useState(urls);
   const [cards, setCards] = useState<ICard[]>([]);
+
+  const [url, setUrl] = useState('');
+  const router = useRouter();
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    addUrl(url);
+    await router.push('/chat');
+  };
 
   const splittingMethod = 'markdown'; // markdown splitting
 
@@ -36,9 +46,11 @@ const Context: React.FC<ContextProps> = ({ className, selected, height }) => { /
   return (
     <ScrollArea p="lg" h={height}> {/* Applied the height prop to the ScrollArea */}
     <Title order={1} mb="md" ml="xl">Sources</Title>
-      <Paper p="xl" shadow="xs" radius="lg" withBorder>
+      <Paper p="xl" shadow="xs" radius="lg" withBorder mb="lg" mt="lg">
         <Center>
-        <TextInput size="lg" radius="lg" placeholder='Paste your URL here' rightSection={<IconClipboard />} maw={500} w="100%"/>
+        <form onSubmit={handleSubmit}>
+        <TextInput size="lg" radius="lg" placeholder='Paste your URL here' value={url} rightSection={<IconClipboard />} maw={800} w="100%" onChange={(e) => setUrl(e.target.value)}/>
+        </form>
         </Center>
         <Group gap="xs" m="md">
           {buttons}
