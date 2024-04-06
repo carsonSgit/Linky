@@ -25,11 +25,10 @@ export const Card: FC<ICardProps> = ({ card, selected }) => {
       p="lg"
       m="md"
       style={{
-        backgroundColor: isSelected ? '#4B5563' : '#1F2937',
-        borderColor: isSelected ? '#0EA5E9' : 'transparent',
-        borderWidth: isSelected ? 4 : 0,
-        borderStyle: 'double',
-        opacity: isSelected ? 1 : 0.6,
+        backgroundColor: isSelected ? '#616264' : '#434446',
+        borderColor: isSelected ? '#C3C4C5' : 'transparent',
+        borderWidth: isSelected ? 3 : 1,
+        opacity: isSelected ? 1 : 0.4,
         transition: 'opacity 300ms ease-in-out',
         color: 'white',
       }}
