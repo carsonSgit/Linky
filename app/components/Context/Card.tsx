@@ -32,6 +32,7 @@ export const Card: FC<ICardProps> = ({ card, selected }) => {
         opacity: isSelected ? 0.8 : 0.4,
         transition: 'opacity 300ms ease-in-out',
         color: 'white',
+        width: '100%'
       }}
       onMouseOver={(e) => {
         if (!isSelected) e.currentTarget.style.opacity = '0.8';
