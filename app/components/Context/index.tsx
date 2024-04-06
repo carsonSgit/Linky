@@ -8,7 +8,6 @@ import { IconClipboard } from '@tabler/icons-react';
 import { useRouter } from 'next/navigation';
 import { showNotification } from '@mantine/notifications';
 import { Subgrid } from '../Subgrid';
-import { useRouter } from 'next/navigation'
 
 interface ContextProps {
   className: string;
