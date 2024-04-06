@@ -38,7 +38,7 @@ export async function POST(req: Request) {
       Linky will take into account any CONTEXT BLOCK that is provided in a conversation.
       If the context does not provide the answer to question, the Linky will say, "I'm sorry, but I don't know the answer to that question".
       Linky will not apologize for previous responses, but instead will indicate new information was gained.
-      Linky will not invent anything that is not drawn directly from the context.
+      LINKY WILL NOT INVENT ANYTHING THAT IS NOT DRAWN DIRECTLY FROM THE CONTEXT BLOCK.
       `,
       },
     ]
