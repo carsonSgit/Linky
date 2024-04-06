@@ -29,7 +29,7 @@ export const Card: FC<ICardProps> = ({ card, selected }) => {
         borderColor: isSelected ? '#0076a5' : 'transparent',
         borderWidth: isSelected ? 2 : 1,
         borderStyle: 'solid',
-        opacity: isSelected ? 0.7 : 0.4,
+        opacity: isSelected ? 0.8 : 0.4,
         transition: 'opacity 300ms ease-in-out',
         color: 'white',
       }}
