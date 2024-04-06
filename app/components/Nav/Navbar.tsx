@@ -13,7 +13,7 @@ function Navbar({ text }: { text: string }) {
   );
 
   return( 
-    <Group justify='space-between'>       
+    <Group wrap='nowrap' justify='space-between'>       
         <Title mb={20} ml={isMobile ? 30 : 60} ta="left" dangerouslySetInnerHTML={{ __html: styledText }} />
       <UnstyledButton href="/" component={Link}>
         <Linky />
