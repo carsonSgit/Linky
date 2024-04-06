@@ -7,6 +7,8 @@ import { Button, ScrollArea, Group, Center, Stack, TextInput, Paper, Title, Load
 import { IconClipboard } from '@tabler/icons-react';
 import { useRouter } from 'next/navigation';
 import { showNotification } from '@mantine/notifications';
+import { Subgrid } from '../Subgrid';
+import { useRouter } from 'next/navigation'
 
 interface ContextProps {
   className: string;
@@ -85,11 +87,11 @@ const Context: React.FC<ContextProps> = ({ className, selected, height }) => {
       </Paper>
       {cards != null && (
         <Paper p="xl" shadow="xs" radius="lg" withBorder mt={12}>
-          <Stack>
+          <Subgrid>
             {cards.map((card, key) => (
               <Card key={key} card={card} selected={selected} />
             ))}
-          </Stack>
+          </Subgrid>
         </Paper>
       )}
     </ScrollArea>
