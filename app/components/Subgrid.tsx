@@ -14,7 +14,7 @@ export function Subgrid({ children }: SubgridProps) {
   const theme = useMantineTheme();
   return (
     <Container my="md">
-      <SimpleGrid cols={{ base: 1, xs: 4 }}>
+      <SimpleGrid cols={{ base: 1, xs: 2 }}>
         {/* Render children inside SimpleGrid */}
         {children}
       </SimpleGrid>

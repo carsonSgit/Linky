@@ -1,3 +1,5 @@
+import { showNotification } from '@mantine/notifications';
+
 export const urls = [
   {
     url: "https://mantine.dev",
@@ -8,9 +10,11 @@ export const urls = [
 ];
 
 // Function to add a new URL
-export const addUrl = async (newUrl: string) => {
+export const addUrl = async (newUrl: string, setLoading: (loading: boolean) => void, onError: (error: string) => void) => {
+  setLoading(true); // Start loading
   try {
     const response = await fetch(newUrl);
+    if (!response.ok) throw new Error('Failed to fetch URL');
     const html = await response.text();
 
     // Define an array of strategies to extract the title
@@ -39,5 +43,13 @@ export const addUrl = async (newUrl: string) => {
     });
   } catch (error) {
     console.error("Error fetching URL title:", error);
+    onError(error instanceof Error ? error.message : String(error));
+    showNotification({
+      title: 'Error',
+      message: error instanceof Error ? error.message : String(error),
+      color: 'red',
+    });
+  } finally {
+    setLoading(false); // End loading
   }
 };

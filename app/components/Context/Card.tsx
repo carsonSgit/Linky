@@ -33,7 +33,7 @@ export const Card: FC<ICardProps> = ({ card, selected }) => {
         transition: 'opacity 300ms ease-in-out',
         color: 'white',
         width: '100%',
-        maxWidth: 'fit-content'
+        // maxWidth: 'fit-content'
       }}
       onMouseOver={(e) => {
         if (!isSelected) e.currentTarget.style.opacity = '0.8';
@@ -43,9 +43,10 @@ export const Card: FC<ICardProps> = ({ card, selected }) => {
       }}
     >
        <div style={{ maxWidth: 'fit-content'}}>
-        <ReactMarkdown style={{wrap: 'nowrap'} }>{card.pageContent}</ReactMarkdown>
+        {/* <ReactMarkdown>{card.pageContent}</ReactMarkdown> */}
+        <Text>{card.pageContent}</Text>
       </div>
-      <Text size="xs" fw={700}>
+      <Text size="xs" fw={700} >
         {card.metadata.hash}
       </Text>
     </Paper>
