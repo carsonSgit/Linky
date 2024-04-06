@@ -82,7 +82,7 @@ const LinkyFace: React.FC<LinkyFaceProps> = ({ eyeSize, mouthType }) => {
   };
 
   return (
-    <svg ref={linkyRef} width="100" height="100" xmlns="http://www.w3.org/2000/svg">
+    <svg ref={linkyRef} width="60%" height="60%"  preserveAspectRatio='X100Y100 meet' viewBox='0 0 100 100' xmlns="http://www.w3.org/2000/svg">
       {/* Eyes */}
       <circle cx={leftEyePosition.x} cy={leftEyePosition.y} r={eyeSize} fill="white"/>
       <circle cx={rightEyePosition.x} cy={rightEyePosition.y} r={eyeSize} fill="white"/>
