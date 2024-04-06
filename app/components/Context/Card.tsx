@@ -41,7 +41,9 @@ export const Card: FC<ICardProps> = ({ card, selected }) => {
         if (!isSelected) e.currentTarget.style.opacity = '0.6';
       }}
     >
-      <ReactMarkdown>{card.pageContent}</ReactMarkdown>
+       <div style={{ maxWidth: '100%'}}>
+        <ReactMarkdown>{card.pageContent}</ReactMarkdown>
+      </div>
       <Text size="xs" fw={700}>
         {card.metadata.hash}
       </Text>
