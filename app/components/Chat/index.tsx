@@ -1,9 +1,10 @@
 import React, { ChangeEvent, FormEvent } from 'react';
-import { TextInput, Box, Stack } from '@mantine/core';
+import { TextInput, Box, Stack, ScrollArea } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { IconMessageForward } from '@tabler/icons-react';
 import Messages from './Messages';
 import { Message } from 'ai/react';
+import { useMediaQuery } from '@mantine/hooks';
 
 interface Chat {
   input: string;
@@ -19,12 +20,9 @@ const Chat: React.FC<Chat> = ({ input, handleInputChange, handleMessageSubmit, m
     },
   });
 
-  const onSubmit = (values: { messageInput: string }) => {
-    handleMessageSubmit(values.messageInput as unknown as React.FormEvent<HTMLFormElement>);
-    form.reset();
-  };
+  const isMobile = useMediaQuery('(max-width: 768px)');
 
-  return (
+  const chatContent = (
     <Stack p="lg">
       <Messages messages={
       messages.length > 0 ? messages : [{ id: '1', content: 'Hello, how can I help you today?', role: 'assistant' }]} />
@@ -44,6 +42,12 @@ const Chat: React.FC<Chat> = ({ input, handleInputChange, handleMessageSubmit, m
         </form>
       </Box>
     </Stack>
+  );
+
+  return isMobile ? chatContent : (
+    <ScrollArea>
+      {chatContent}
+    </ScrollArea>
   );
 };
 
