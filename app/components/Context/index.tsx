@@ -3,19 +3,20 @@ import { urls } from './urls';
 import UrlButton from './UrlButton'; // Assuming this is a custom component you've created
 import { Card, ICard } from './Card'; // Assuming this is a custom component you've created
 import { clearIndex, crawlDocument } from './utils';
-import { Button, ScrollArea, Group, Box, Center, Stack, TextInput, Paper } from '@mantine/core';
+import { Button, ScrollArea, Group, Center, Stack, TextInput, Paper, Title } from '@mantine/core';
 import { IconClipboard } from '@tabler/icons-react';
 
 interface ContextProps {
   className: string;
   selected: string[] | null;
+  height: number;
 }
 
-const Context: React.FC<ContextProps> = ({ className, selected }) => {
+const Context: React.FC<ContextProps> = ({ className, selected, height }) => { // Added height to the destructured props
   const [entries, setEntries] = useState(urls);
   const [cards, setCards] = useState<ICard[]>([]);
 
-  const splittingMethod = 'markdown'; // Always use markdown splitting
+  const splittingMethod = 'markdown'; // markdown splitting
 
   // Scroll to selected card
   useEffect(() => {
@@ -32,7 +33,8 @@ const Context: React.FC<ContextProps> = ({ className, selected }) => {
   ));
 
   return (
-    <ScrollArea p="lg" h="100%">
+    <ScrollArea p="lg" h={height}> {/* Applied the height prop to the ScrollArea */}
+    <Title order={1} mb="md" ml="xl">Sources</Title>
       <Paper p="xl" shadow="xs" radius="lg" withBorder>
         <Center>
         <TextInput size="lg" radius="lg" placeholder='Paste your URL here' rightSection={<IconClipboard />} maw={500} w="100%"/>

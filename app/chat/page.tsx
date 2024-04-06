@@ -65,7 +65,7 @@ const ChatPage: React.FC = () => {
           messages={messages}
         />
       </Paper>
-      <Context className="" selected={context} />
+      <Context className="" selected={context} height={height - 115} />
     </SimpleGrid>
     </>
   );
