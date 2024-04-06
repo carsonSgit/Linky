@@ -1,18 +1,18 @@
-import React from 'react';
+import React, { ChangeEvent, FormEvent } from 'react';
 import { TextInput, Box, Stack } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { IconMessageForward } from '@tabler/icons-react';
 import Messages from './Messages';
 import { Message } from 'ai/react';
 
-interface ChatProps {
+interface Chat {
   input: string;
-  handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  handleMessageSubmit: (e: React.FormEvent<HTMLFormElement>) => Promise<void>;
+  handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  handleMessageSubmit: (e: FormEvent<HTMLFormElement>) => Promise<void>;
   messages: Message[];
 }
 
-const Chat: React.FC<ChatProps> = ({ input, handleInputChange, handleMessageSubmit, messages }) => {
+const Chat: React.FC<Chat> = ({ input, handleInputChange, handleMessageSubmit, messages }) => {
   const form = useForm({
     initialValues: {
       messageInput: '',
@@ -30,11 +30,12 @@ const Chat: React.FC<ChatProps> = ({ input, handleInputChange, handleMessageSubm
       messages.length > 0 ? messages : [{ id: '1', content: 'Hello, how can I help you today?', role: 'assistant' }]} />
       
       <Box mt="md" mb="md">
-        <form onSubmit={form.onSubmit(onSubmit)}>
+        <form
+          onSubmit={handleMessageSubmit}
+        >
             <TextInput
               size="lg"
-              radius="lg"
-              required
+              radius="lg"              
               placeholder="Talk with Linky..."
               value={input}
               onChange={handleInputChange}

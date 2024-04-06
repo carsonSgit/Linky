@@ -1,6 +1,7 @@
 // UrlButton.tsx
 import React, { FC } from 'react';
-import { Button, Group, LoadingOverlay, Anchor } from '@mantine/core';
+import { Button, LoadingOverlay, ActionIcon, Text } from '@mantine/core';
+import { IconShare2 } from '@tabler/icons-react';
 
 export interface IUrlEntry {
   url: string;
@@ -22,7 +23,12 @@ const UrlButton: FC<IURLButtonProps> = ({ entry, onClick }) => (
       style={{ position: 'relative' }}
     >
       {entry.loading && <LoadingOverlay visible overlayProps={{ blur: 2 }} loaderProps={{ size: "sm", type: "bars" }}/>}
-      {entry.title}
+      <ActionIcon c={entry.seeded ? 'green' : 'gray'} variant='subtle' mr="xs">
+        <IconShare2 />
+      </ActionIcon>
+      <Text>
+        {entry.title}
+      </Text>
     </Button>
 );
 
