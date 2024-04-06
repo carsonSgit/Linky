@@ -17,7 +17,8 @@ const linkyColors: MantineColorsTuple = [
 
 export const theme = createTheme({
   /* Put your mantine theme override here */
+  primaryColor: 'linkyColors',
   colors: {
     linkyColors,
-  }
+  },
 });
