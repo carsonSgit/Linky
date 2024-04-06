@@ -10,31 +10,39 @@ export default function Messages({ messages }: { messages: Message[] }) {
     <ScrollArea style={{ height: '100%' }}>
       <Stack p="xs" style={{ minHeight: '100%' }}>
         {messages.map((msg, index) => (
-          <Paper
-            key={index}
-            shadow="md"
-            p="md"
-            radius="md"
+          <div 
+            key={index} 
             style={{
-              backgroundColor: theme.colors.gray[8],
-              borderColor: theme.colors.gray[6],
-              borderWidth: 1,
-              borderStyle: 'solid',
-              margin: '10px 0',
               display: 'flex',
-              alignItems: 'center',
+              justifyContent: msg.role === 'assistant' ? 'flex-start' : 'flex-end'
             }}
           >
-            <Avatar color="blue" radius="xl">
-              {msg.role === 'assistant' ? '👻' : '🧑‍💻'}
-            </Avatar>
-            <Text
-              c={msg.role === 'assistant' ? 'green' : 'blue'}
-              style={{ marginLeft: 10 }}
+            <Paper
+              shadow="md"
+              p="md"
+              radius="lg"
+              style={{ 
+                maxWidth: '80%', 
+                display: 'flex',
+                alignItems: 'center'
+              }}
+              withBorder
             >
-              {msg.content}
-            </Text>
-          </Paper>
+              {msg.role === 'assistant' ? (
+                <Avatar radius="xl" src="/linky.png" alt="Linky" />
+              ) : (
+                <Avatar radius="xl">
+                🧑‍💻
+                </Avatar>
+              )}      
+              <Text
+                // c={msg.role === 'assistant' ? 'green' : 'blue'}
+                style={{ marginLeft: 10 }}
+              >
+                {msg.content}
+              </Text>
+            </Paper>
+          </div>
         ))}
         <div ref={messagesEndRef} />
       </Stack>

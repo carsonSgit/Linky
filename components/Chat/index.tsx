@@ -1,7 +1,7 @@
 import React from 'react';
-import { TextInput, Button, Group, Box, Stack, ActionIcon } from '@mantine/core';
+import { TextInput, Box, Stack } from '@mantine/core';
 import { useForm } from '@mantine/form';
-import { IconArrowUp } from '@tabler/icons-react';
+import { IconMessageForward } from '@tabler/icons-react';
 import Messages from './Messages';
 import { Message } from 'ai/react';
 
@@ -38,22 +38,15 @@ const Chat: React.FC<ChatProps> = ({ input, handleInputChange, handleMessageSubm
       
       <Box mt="md" mb="md">
         <form onSubmit={form.onSubmit(onSubmit)}>
-          <Group justify="space-between">
             <TextInput
+              size="lg"
+              radius="lg"
               required
-              placeholder="Type your message here..."
+              placeholder="Talk with Linky..."
               value={input}
               onChange={handleInputChange}
-              rightSection={
-                <ActionIcon
-                  variant="filled"
-                  aria-label="Send message"
-                >
-                  <IconArrowUp />
-                </ActionIcon>
-              }
+              rightSection={<IconMessageForward />}
             />
-          </Group>
         </form>
       </Box>
     </Stack>
