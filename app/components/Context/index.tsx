@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { urls, addUrl } from './urls';
-import UrlButton from './UrlButton'; // Assuming this is a custom component you've created
-import { Card, ICard } from './Card'; // Assuming this is a custom component you've created
+import UrlButton from './UrlButton';
+import { Card, ICard } from './Card';
 import { clearIndex, crawlDocument } from './utils';
-import { Button, ScrollArea, Group, Center, Stack, TextInput, Paper, Title } from '@mantine/core';
+import { Button, ScrollArea, Group, Center, Stack, TextInput, Paper, Title, Loader, Overlay } from '@mantine/core';
 import { IconClipboard } from '@tabler/icons-react';
-import { useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation';
+import { showNotification } from '@mantine/notifications';
 
 interface ContextProps {
   className: string;
@@ -13,17 +14,34 @@ interface ContextProps {
   height: number;
 }
 
-const Context: React.FC<ContextProps> = ({ className, selected, height }) => { // Added height to the destructured props
+const Context: React.FC<ContextProps> = ({ className, selected, height }) => {
   const [entries, setEntries] = useState(urls);
   const [cards, setCards] = useState<ICard[]>([]);
+  const [loading, setLoading] = useState(false);
 
   const [url, setUrl] = useState('');
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    addUrl(url);
-    await router.push('/chat');
+    setLoading(true);
+    try {
+      addUrl(url, setLoading, (error) => {
+        showNotification({
+          title: 'Error',
+          message: error,
+          color: 'red',
+        });
+      });
+    } catch (error) {
+      showNotification({
+        title: 'Error',
+        message: 'Failed to fetch URL',
+        color: 'red',
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   const splittingMethod = 'markdown'; // markdown splitting
@@ -39,6 +57,7 @@ const Context: React.FC<ContextProps> = ({ className, selected, height }) => { /
       key={`${key}-${entry.loading}`}
       entry={entry}
       onClick={() => crawlDocument(entry.url, setEntries, setCards, splittingMethod, 256, 1)} // Chunk size of 256 and overlap of 1
+      loading={loading}
     />
   ));
 

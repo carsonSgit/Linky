@@ -11,7 +11,13 @@ const Welcome = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    addUrl(url);
+    const setLoading = (loading: boolean) => {
+      console.log("Loading:", loading);
+    };
+    const onError = (error: string) => {
+      console.error("Error:", error);
+    };
+    await addUrl(url, setLoading, onError);
     await router.push('/chat');
   };
 
