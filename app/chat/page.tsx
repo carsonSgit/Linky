@@ -57,7 +57,7 @@ const ChatPage: React.FC = () => {
       spacing={{ base: 10, sm: 'xl' }}
       verticalSpacing={{ base: 'md', sm: 'xl' }}
     >
-      <Paper p="xl" shadow="xs" radius="lg" h={height} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
+      <Paper p="xl" shadow="xs" radius="lg" h={height - 115} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
       <Chat
           input={input}
           handleInputChange={handleInputChange}

@@ -27,14 +27,7 @@ const Chat: React.FC<ChatProps> = ({ input, handleInputChange, handleMessageSubm
   return (
     <Stack p="lg">
       <Messages messages={
-      messages.length > 0 ? messages : [
-        { id: '1', content: 'Hello, how can I help you today?', role: 'assistant' },
-        { id: '2', content: 'I was wondering about your services.', role: 'user' },
-        { id: '3', content: 'Sure, we offer a wide range of services including...', role: 'assistant' },
-        { id: '4', content: 'That sounds great, can you tell me more about...', role: 'user' },
-        { id: '5', content: 'Of course! Our services are designed to...', role: 'assistant' }
-      ]
-      } />
+      messages.length > 0 ? messages : [{ id: '1', content: 'Hello, how can I help you today?', role: 'assistant' }]} />
       
       <Box mt="md" mb="md">
         <form onSubmit={form.onSubmit(onSubmit)}>
