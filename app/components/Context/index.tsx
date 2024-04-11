@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { urls, addUrl, onChange } from './urls';
+import { urls, addUrl } from './urls';
 import UrlButton from './UrlButton';
 import { Card, ICard } from './Card';
 import { clearIndex, crawlDocument } from './utils';
@@ -18,18 +18,24 @@ const Context: React.FC<ContextProps> = ({ className, selected, height }) => {
   const [entries, setEntries] = useState([...urls]);
   const [cards, setCards] = useState<ICard[]>([]);
   const [loading, setLoading] = useState(false);
-  const [url, setUrl] = useState('');
 
-  useEffect(() => {
-    const unsubscribe = onChange(() => {
-      setEntries([...urls]);
-    });
-    return () => unsubscribe();
-  }, []);
+  const [url, setUrl] = useState('');
 
   const handleAddUrl = async (url: string) => {
     setLoading(true);
     try {
+      // Check if the URL already exists in the entries state
+      const urlExists = entries.some(entry => entry.url === url);
+      if (urlExists) {
+        showNotification({
+          title: 'Error',
+          message: 'URL already exists',
+          color: 'orange',
+        });
+        setLoading(false);
+        return; // Exit the function early if the URL already exists
+      }
+  
       await addUrl(url, setLoading, (error) => {
         console.error("Failed to add URL:", error);
         showNotification({
@@ -38,6 +44,14 @@ const Context: React.FC<ContextProps> = ({ className, selected, height }) => {
           color: 'red',
         });
       });
+      
+      // Proceed to add the URL if it does not already exist
+      setEntries([...entries, {
+        url: url,
+        title: `URL ${entries.length + 1}`,
+        seeded: false,
+        loading: false,
+      }]);
       setUrl(''); // Clear the input field after successful URL addition
     } catch (error) {
       console.error("Failed to add URL:", error);
@@ -53,6 +67,7 @@ const Context: React.FC<ContextProps> = ({ className, selected, height }) => {
 
   const splittingMethod = 'markdown'; // markdown splitting
 
+  // Scroll to selected card
   useEffect(() => {
     const element = selected && document.getElementById(selected[0]);
     element?.scrollIntoView({ behavior: 'smooth' });
@@ -68,7 +83,7 @@ const Context: React.FC<ContextProps> = ({ className, selected, height }) => {
   ));
 
   return (
-    <ScrollArea p="lg" h={height}>
+    <ScrollArea p="lg" h={height}> {/* Applied the height prop to the ScrollArea */}
     <Title order={1} mb="md" ml="xl">Sources</Title>
       <Paper p="xl" shadow="xs" radius="lg" withBorder mb="lg" mt="lg">
         <Center>

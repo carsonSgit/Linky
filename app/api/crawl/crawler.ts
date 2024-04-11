@@ -62,20 +62,9 @@ class Crawler {
     this.queue.push(...urls.map(url => ({ url, depth: depth + 1 })));
   }
 
-  async fetchTitle(url: string): Promise<string> {
-    try {
-        const response = await fetch(url);
-        const title = await response.text();
-        return title || 'No title found';
-    } catch (error) {
-        console.error(`Failed to fetch title for ${url}: ${error}`);
-        return 'Error fetching title';
-    }
-  }
-
   private async fetchPage(url: string): Promise<string> {
     try {
-        const response = await fetch(url);
+      const response = await fetch(url);
       return await response.text();
     } catch (error) {
       console.error(`Failed to fetch ${url}: ${error}`);
