@@ -22,27 +22,31 @@ const Chat: React.FC<Chat> = ({ input, handleInputChange, handleMessageSubmit, m
 
   const isMobile = useMediaQuery('(max-width: 768px)');
 
-  return (
+  const messagesContent = (
+    <Messages messages={
+    messages.length > 0 ? messages : [{ id: '1', content: 'Hello, how can I help you today?', role: 'assistant' }]} />
+  );
+
+  const chatContent = (
     <Stack p="lg">
-      <Messages messages={
-      messages.length > 0 ? messages : [{ id: '1', content: 'Hello, how can I help you today?', role: 'assistant' }]} />
+      {isMobile ? messagesContent : <ScrollArea>{messagesContent}</ScrollArea>}
       
       <Box mt="md" mb="md">
-        <form
-          onSubmit={handleMessageSubmit}
-        >
-            <TextInput
-              size="lg"
-              radius="lg"              
-              placeholder="Talk with Linky..."
-              value={input}
-              onChange={handleInputChange}
-              rightSection={<IconMessageForward />}
-            />
+        <form onSubmit={handleMessageSubmit}>
+          <TextInput
+            size="lg"
+            radius="lg"              
+            placeholder="Talk with Linky..."
+            value={input}
+            onChange={handleInputChange}
+            rightSection={<IconMessageForward />}
+          />
         </form>
       </Box>
     </Stack>
   );
+
+  return chatContent;
 };
 
 export default Chat;

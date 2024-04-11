@@ -7,7 +7,6 @@ export default function Messages({ messages }: { messages: Message[] }) {
   const theme = useMantineTheme();
 
   return (
-    <ScrollArea>
       <Stack p="xs" style={{ minHeight: '100%' }}>
         {messages.map((msg, index) => (
           <div 
@@ -46,6 +45,5 @@ export default function Messages({ messages }: { messages: Message[] }) {
         ))}
         <div ref={messagesEndRef} />
       </Stack>
-    </ScrollArea>
   );
 }
