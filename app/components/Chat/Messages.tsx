@@ -70,7 +70,7 @@ export default function Messages({ messages }: { messages: Message[] }) {
               p="md"
               radius="lg"
               style={{ 
-                maxWidth: '90%', 
+                maxWidth: '85%', 
                 display: 'flex',
                 alignItems: 'center'
               }}
