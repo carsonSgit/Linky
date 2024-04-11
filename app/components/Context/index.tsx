@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { urls, addUrl } from './urls';
+import { urls } from './urls';
 import UrlButton from './UrlButton';
 import { Card, ICard } from './Card';
 import { clearIndex, crawlDocument, fetchDocumentTitle } from './utils'; // Modified import to include fetchDocumentTitle
@@ -50,7 +50,7 @@ const Context: React.FC<ContextProps> = ({ className, selected, height }) => {
 
       if (!fetchedTitle) {
         // Handle case where title could not be fetched
-        fetchedTitle = `URL ${entries.length + 1}`; // Fallback title
+        fetchedTitle = `URL ${entries.length + 1}`;
       }
 
       // Add the URL with the fetched or fallback title
@@ -73,7 +73,7 @@ const Context: React.FC<ContextProps> = ({ className, selected, height }) => {
     }
   };
 
-  const splittingMethod = 'markdown'; // markdown splitting
+  const splittingMethod = 'markdown';
 
   // Scroll to selected card
   useEffect(() => {
@@ -91,7 +91,7 @@ const Context: React.FC<ContextProps> = ({ className, selected, height }) => {
   ));
 
   return (
-    <ScrollArea p="lg" h={height}> {/* Applied the height prop to the ScrollArea */}
+    <ScrollArea p="lg" h={height}>
     <Title order={1} mb="md" ml="xl">Sources</Title>
       <Paper p="xl" shadow="xs" radius="lg" withBorder mb="lg" mt="lg">
         <Center>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { addUrl } from '../Context/urls';
+import { fetchDocumentTitle } from '../Context/utils';
 import { Title, Text, TextInput, ActionIcon, Loader } from '@mantine/core';
 import { showNotification } from '@mantine/notifications';
 import classes from './Welcome.module.css';
@@ -8,12 +9,12 @@ import { IconClipboard } from '@tabler/icons-react';
 
 const Welcome = () => {
   const [url, setUrl] = useState('');
-  const [loading, setLoading] = useState(false); // Define loading state
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true); // Start loading
+    setLoading(true);
     const onError = (error: string) => {
       console.error("Error:", error);
       showNotification({
@@ -22,7 +23,14 @@ const Welcome = () => {
         color: 'red',
       });
     };
-    await addUrl(url, setLoading, onError);
+
+    // Fetch the document title before adding the URL
+    let title = `URL 1`;
+    await fetchDocumentTitle(url, (fetchedTitle) => {
+      title = fetchedTitle || title; 
+    }).catch(onError);
+
+    await addUrl(url, title, setLoading, onError);
     await router.push('/chat');
   };
 

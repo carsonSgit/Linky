@@ -10,11 +10,9 @@ interface UrlEntry {
 export const urls: UrlEntry[] = [];
 
 // Function to add a new URL
-export const addUrl = async (newUrl: string, setLoading: (loading: boolean) => void, onError: (error: string) => void) => {
+export const addUrl = async (newUrl: string, title: string, setLoading: (loading: boolean) => void, onError: (error: string) => void) => {
   setLoading(true); // Start loading
   try {
-    const title = `URL ${urls.length + 1}`;
-
     urls.push({
       url: newUrl,
       title: title,
