@@ -7,24 +7,28 @@ export default function Messages({ messages }: { messages: Message[] }) {
   const messagesEndRef = useRef(null);
 
   // Function to process message content and replace code blocks with InlineCodeHighlight components
-  const processMessageContent = (message: string) => {
-    const codeBlockRegex = /```(\w+)\s([\s\S]+?)```/g;
-    const inlineCodeRegex = /`([^`]+)`/g; // Regex to match inline code blocks
+  const processMessageContent = (message: string): React.ReactNode[] => {
+    const codeBlockRegex = /```(\w+)\s*([\s\S]+?)```/g; // Adjusted regex to allow optional whitespace after the language
+    const inlineCodeRegex = /`([^`]+)`/g;
     const parts: React.ReactNode[] = [];
     let lastIndex = 0;
 
     // Split the message by multiline code blocks, keeping the delimiters
-    const splitMessage = message.split(/(```(?:\w+)\s[\s\S]+?```)/g);
+    const splitMessage = message.split(/(```\w+\s*[\s\S]+?```)/g);
 
     splitMessage.forEach((part, index) => {
       if (codeBlockRegex.test(part)) {
-        // This part is a multiline code block
-        const [, language, code] = part.match(codeBlockRegex) || [];
-        parts.push(
-          <ScrollArea key={`block-${index}`} m="sm">
-            <CodeHighlight code={code ? code.trim() : ''} language={language} withCopyButton={false}/>
-          </ScrollArea>
-        );
+        // Reset the lastIndex for global regex to ensure it matches from the beginning of the string
+        codeBlockRegex.lastIndex = 0;
+        const match = codeBlockRegex.exec(part);
+        if (match) {
+          const [, language, code] = match;
+          parts.push(
+            <ScrollArea key={`block-${index}`} m="sm">
+              <CodeHighlight code={code.trim()} language={language} withCopyButton={false}/>
+            </ScrollArea>
+          );
+        }
       } else {
         // This part is either plain text or contains inline code blocks
         let intermediateLastIndex = 0;
