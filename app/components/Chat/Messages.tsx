@@ -19,8 +19,8 @@ export default function Messages({ messages }: { messages: Message[] }) {
       }
       // Add the InlineCodeHighlight component for the code block
       parts.push(
-        <ScrollArea key={index} maw="80%">
-          <CodeHighlight code={code.trim()} language={language} withCopyButton={false} m="xs"/>
+        <ScrollArea key={index} maw="70%" m="sm">
+          <CodeHighlight code={code.trim()} language={language} withCopyButton={false}/>
         </ScrollArea>
       );
       lastIndex = index + match.length;
@@ -61,7 +61,7 @@ export default function Messages({ messages }: { messages: Message[] }) {
           ) : (
             <Avatar radius="xl">🧑‍💻</Avatar>
           )}
-          <Text ml="10px">
+          <Text m="xs" maw="80%">
             {processMessageContent(msg.content)}
           </Text>
         </Paper>
