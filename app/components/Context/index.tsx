@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { urls, addUrl } from './urls';
 import UrlButton from './UrlButton';
 import { Card, ICard } from './Card';
-import { clearIndex, crawlDocument } from './utils';
+import { clearIndex, crawlDocument, fetchDocumentTitle } from './utils'; // Modified import to include fetchDocumentTitle
 import { Button, ScrollArea, Group, Center, TextInput, Paper, Title } from '@mantine/core';
 import { IconClipboard } from '@tabler/icons-react';
 import { showNotification } from '@mantine/notifications';
@@ -24,7 +24,6 @@ const Context: React.FC<ContextProps> = ({ className, selected, height }) => {
   const handleAddUrl = async (url: string) => {
     setLoading(true);
     try {
-      // Check if the URL already exists in the entries state
       const urlExists = entries.some(entry => entry.url === url);
       if (urlExists) {
         showNotification({
@@ -33,26 +32,35 @@ const Context: React.FC<ContextProps> = ({ className, selected, height }) => {
           color: 'orange',
         });
         setLoading(false);
-        return; // Exit the function early if the URL already exists
+        return;
       }
-  
-      await addUrl(url, setLoading, (error) => {
-        console.error("Failed to add URL:", error);
+
+      // Fetch the document title
+      let fetchedTitle = '';
+      await fetchDocumentTitle(url, (title) => {
+        fetchedTitle = title;
+      }).catch((error) => {
+        console.error("Failed to fetch document title:", error);
         showNotification({
           title: 'Error',
-          message: error,
+          message: error instanceof Error ? error.message : String(error),
           color: 'red',
         });
       });
-      
-      // Proceed to add the URL if it does not already exist
+
+      if (!fetchedTitle) {
+        // Handle case where title could not be fetched
+        fetchedTitle = `URL ${entries.length + 1}`; // Fallback title
+      }
+
+      // Add the URL with the fetched or fallback title
       setEntries([...entries, {
         url: url,
-        title: `URL ${entries.length + 1}`,
+        title: fetchedTitle,
         seeded: false,
         loading: false,
       }]);
-      setUrl(''); // Clear the input field after successful URL addition
+      setUrl('');
     } catch (error) {
       console.error("Failed to add URL:", error);
       showNotification({

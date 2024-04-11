@@ -47,6 +47,29 @@ export async function crawlDocument(
   }
 }
 
+export async function fetchDocumentTitle(
+  url: string,
+  setTitle: (title: string) => void
+): Promise<void> {
+  try {
+    const response = await fetch("/api/fetchTitle", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ url }),
+    });
+
+    if (!response.ok) {
+      // Handle non-200 responses
+      throw new Error(`Server error: ${response.status}`);
+    }
+
+    const data = await response.json();
+    setTitle(data.title);
+  } catch (error) {
+    console.error("Failed to fetch or parse response:", error);
+  }
+}
+
 export async function clearIndex(
   setEntries: React.Dispatch<React.SetStateAction<IUrlEntry[]>>,
   setCards: React.Dispatch<React.SetStateAction<ICard[]>>
