@@ -10,45 +10,43 @@ export default function Messages({ messages }: { messages: Message[] }) {
   const processMessageContent = (message: string) => {
     const codeBlockRegex = /```(\w+)\s([\s\S]+?)```/g;
     const inlineCodeRegex = /`([^`]+)`/g; // Regex to match inline code blocks
-    const parts = [];
+    const parts: React.ReactNode[] = [];
     let lastIndex = 0;
 
-    // First, replace multiline code blocks
-    message.replace(codeBlockRegex, (match, language, code, index) => {
-      // Add preceding text if there is any
-      if (index > lastIndex) {
-        parts.push(message.slice(lastIndex, index));
-      }
-      // Add the CodeHighlight component for the code block
-      parts.push(
-        <ScrollArea key={`block-${index}`} m="sm">
-          <CodeHighlight code={code.trim()} language={language} withCopyButton={false}/>
-        </ScrollArea>
-      );
-      lastIndex = index + match.length;
-      return match; // This return is not used but is necessary for the replace function
-    });
+    // Split the message by multiline code blocks, keeping the delimiters
+    const splitMessage = message.split(/(```(?:\w+)\s[\s\S]+?```)/g);
 
-    // Then, replace inline code blocks
-    const intermediateText = message.slice(lastIndex); // Text after handling multiline code blocks
-    let intermediateLastIndex = 0;
-    intermediateText.replace(inlineCodeRegex, (match, code, index) => {
-      // Add preceding text if there is any
-      if (index > intermediateLastIndex) {
-        parts.push(intermediateText.slice(intermediateLastIndex, index));
-      }
-      // Add the InlineCodeHighlight component for the inline code block
-      parts.push(
-        <InlineCodeHighlight key={`inline-${index}`} code={code.trim()} />
-      );
-      intermediateLastIndex = index + match.length;
-      return match; // This return is not used but is necessary for the replace function
-    });
+    splitMessage.forEach((part, index) => {
+      if (codeBlockRegex.test(part)) {
+        // This part is a multiline code block
+        const [, language, code] = part.match(codeBlockRegex) || [];
+        parts.push(
+          <ScrollArea key={`block-${index}`} m="sm">
+            <CodeHighlight code={code ? code.trim() : ''} language={language} withCopyButton={false}/>
+          </ScrollArea>
+        );
+      } else {
+        // This part is either plain text or contains inline code blocks
+        let intermediateLastIndex = 0;
+        part.replace(inlineCodeRegex, (match, code, matchIndex) => {
+          // Add preceding text if there is any
+          if (matchIndex > intermediateLastIndex) {
+            parts.push(part.slice(intermediateLastIndex, matchIndex));
+          }
+          // Add the InlineCodeHighlight component for the inline code block
+          parts.push(
+            <InlineCodeHighlight key={`inline-${index}-${matchIndex}`} code={code.trim()} />
+          );
+          intermediateLastIndex = matchIndex + match.length;
+          return match; // This return is not used but is necessary for the replace function
+        });
 
-    // Add any remaining text after the last inline code block
-    if (intermediateLastIndex < intermediateText.length) {
-      parts.push(intermediateText.slice(intermediateLastIndex));
-    }
+        // Add any remaining text after the last inline code block
+        if (intermediateLastIndex < part.length) {
+          parts.push(part.slice(intermediateLastIndex));
+        }
+      }
+    });
 
     return parts;
   };
