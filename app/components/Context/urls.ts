@@ -13,11 +13,6 @@ export const urls: UrlEntry[] = [];
 export const addUrl = async (newUrl: string, setLoading: (loading: boolean) => void, onError: (error: string) => void) => {
   setLoading(true); // Start loading
   try {
-    // const response = await fetch(newUrl);
-    // if (!response.ok) throw new Error('Failed to fetch URL');
-    // await response.text();
-
-    // Generate title as "URL 1", "URL 2", etc., based on the existing number of URLs
     const title = `URL ${urls.length + 1}`;
 
     urls.push({

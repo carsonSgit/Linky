@@ -22,7 +22,7 @@ const Chat: React.FC<Chat> = ({ input, handleInputChange, handleMessageSubmit, m
 
   const isMobile = useMediaQuery('(max-width: 768px)');
 
-  const chatContent = (
+  return (
     <Stack p="lg">
       <Messages messages={
       messages.length > 0 ? messages : [{ id: '1', content: 'Hello, how can I help you today?', role: 'assistant' }]} />
@@ -42,12 +42,6 @@ const Chat: React.FC<Chat> = ({ input, handleInputChange, handleMessageSubmit, m
         </form>
       </Box>
     </Stack>
-  );
-
-  return isMobile ? chatContent : (
-    <ScrollArea>
-      {chatContent}
-    </ScrollArea>
   );
 };
 
