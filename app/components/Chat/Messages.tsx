@@ -61,7 +61,7 @@ export default function Messages({ messages }: { messages: Message[] }) {
           ) : (
             <Avatar radius="xl">🧑‍💻</Avatar>
           )}
-          <Text m="xs" maw="100%">
+          <Text m="xs" maw="85%">
             {processMessageContent(msg.content)}
           </Text>
         </Paper>
