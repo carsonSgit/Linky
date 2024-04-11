@@ -19,7 +19,7 @@ export default function Messages({ messages }: { messages: Message[] }) {
       }
       // Add the InlineCodeHighlight component for the code block
       parts.push(
-        <ScrollArea key={index}>
+        <ScrollArea key={index} style={{ maxHeight: '300px', overflow: 'auto' }}>
           <CodeHighlight code={code.trim()} language={language} withCopyButton={false} m="xs"/>
         </ScrollArea>
       );
