@@ -39,7 +39,7 @@ const Chat: React.FC<Chat> = ({ input, handleInputChange, handleMessageSubmit, m
   );
 
   return isMobile ? chatContent : (
-    <ScrollArea>
+    <ScrollArea scrollbars="y">
       {chatContent}
     </ScrollArea>
   );

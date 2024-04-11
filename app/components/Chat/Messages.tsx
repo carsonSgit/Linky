@@ -50,7 +50,7 @@ export default function Messages({ messages }: { messages: Message[] }) {
               p="md"
               radius="lg"
               style={{ 
-                maxWidth: '80%', 
+                maxWidth: '90%', 
                 display: 'flex',
                 alignItems: 'center'
               }}
@@ -61,7 +61,7 @@ export default function Messages({ messages }: { messages: Message[] }) {
           ) : (
             <Avatar radius="xl">🧑‍💻</Avatar>
           )}
-          <Text m="xs" maw="85%">
+          <Text m="xs" maw="inherit">
             {processMessageContent(msg.content)}
           </Text>
         </Paper>
