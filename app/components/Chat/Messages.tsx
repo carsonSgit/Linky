@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { Paper, Text, Avatar, Stack } from '@mantine/core';
+import { Paper, Text, Avatar, Stack, ScrollArea } from '@mantine/core';
 import { Message } from 'ai';
 import { CodeHighlight } from '@mantine/code-highlight';
 
@@ -18,7 +18,11 @@ export default function Messages({ messages }: { messages: Message[] }) {
         parts.push(message.slice(lastIndex, index));
       }
       // Add the InlineCodeHighlight component for the code block
-      parts.push(<CodeHighlight key={index} code={code.trim()} language={language} withCopyButton={false} m="xs"/>);
+      parts.push(
+        <ScrollArea key={index}>
+          <CodeHighlight code={code.trim()} language={language} withCopyButton={false} m="xs"/>
+        </ScrollArea>
+      );
       lastIndex = index + match.length;
       return match; // This return is not used but is necessary for the replace function
     });
