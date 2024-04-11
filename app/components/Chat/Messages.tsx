@@ -24,7 +24,7 @@ export default function Messages({ messages }: { messages: Message[] }) {
         if (match) {
           const [, language, code] = match;
           parts.push(
-            <ScrollArea key={`block-${index}`} m="sm" maw="85%">
+            <ScrollArea key={`block-${index}`} ml="sm" mt="ms" mb="sm" maw="80%">
               <CodeHighlight code={code.trim()} language={language} withCopyButton={false}/>
             </ScrollArea>
           );
