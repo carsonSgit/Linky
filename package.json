@@ -17,6 +17,7 @@
     "storybook:build": "storybook build"
   },
   "dependencies": {
+    "@mantine/code-highlight": "^7.7.2",
     "@mantine/core": "^7.7.1",
     "@mantine/form": "^7.7.1",
     "@mantine/hooks": "^7.7.1",

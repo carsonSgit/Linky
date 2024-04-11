@@ -1,6 +1,6 @@
 import React, { ChangeEvent, FormEvent } from 'react';
 import { TextInput, Box, Stack, ScrollArea } from '@mantine/core';
-import { IconMessageForward } from '@tabler/icons-react';
+import { IconMessageForward } from '@tabler/icons-react'
 import Messages from './Messages';
 import { Message } from 'ai/react';
 import { useMediaQuery } from '@mantine/hooks';

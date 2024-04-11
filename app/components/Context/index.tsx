@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { urls } from './urls';
 import UrlButton from './UrlButton';
 import { Card, ICard } from './Card';
-import { clearIndex, crawlDocument, fetchDocumentTitle } from './utils'; // Modified import to include fetchDocumentTitle
+import { clearIndex, crawlDocument, fetchDocumentTitle } from './utils';
 import { Button, ScrollArea, Group, Center, TextInput, Paper, Title } from '@mantine/core';
-import { IconClipboard } from '@tabler/icons-react';
+import { IconClipboard } from '@tabler/icons-react'
 import { showNotification } from '@mantine/notifications';
 import { Subgrid } from '../Subgrid';
 
