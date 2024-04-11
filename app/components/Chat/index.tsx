@@ -1,6 +1,5 @@
-import React, { ChangeEvent, FormEvent } from 'react';
+import React, { ChangeEvent, FormEvent, useEffect, useRef } from 'react';
 import { TextInput, Box, Stack, ScrollArea } from '@mantine/core';
-import { useForm } from '@mantine/form';
 import { IconMessageForward } from '@tabler/icons-react';
 import Messages from './Messages';
 import { Message } from 'ai/react';
@@ -14,13 +13,15 @@ interface Chat {
 }
 
 const Chat: React.FC<Chat> = ({ input, handleInputChange, handleMessageSubmit, messages }) => {
-  const form = useForm({
-    initialValues: {
-      messageInput: '',
-    },
-  });
 
   const isMobile = useMediaQuery('(max-width: 768px)');
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    }
+  }, [messages]);
 
   const chatContent = (
     <Stack p="lg">
