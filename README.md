@@ -24,7 +24,7 @@ Linky harnesses the power of an AI model, integrated with a Pinecone Vector data
 
 ## 🛠️ Technology 
 - Implemented using TypeScript
-- Utilized Mantime for project management
+- Utilized Mantine for UI and hooks
 - Deployed on Vercel
 - Leveraged Pinecone Vector Database for data retrieval
 - RAG AI model using Vercel's AI SDK for retrieval and generation
